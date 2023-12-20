@@ -9,7 +9,7 @@ class DataExtractor:
         return df
     
     def retrieve_pdf_data(link):
-        dfs = tabula.read_pdf(link)
+        dfs = tabula.read_pdf(link,  pages="all")
         pdf_data = pd.concat(dfs)
         return pdf_data
 
