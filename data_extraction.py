@@ -1,19 +1,16 @@
-import psycopg2
-import boto3
+import pandas as pd
+import tabula
 
 class DataExtractor:
     @staticmethod
-    def extract_from_postgresql(host, user, password, database, query):
-        connection = psycopg2.connect(host=host, user=user, password=password, database=database)
-        with connection.cursor() as cursor:
-            cursor.execute(query)
-            data = cursor.fetchall()
-        connection.close()
-        return data
+    def read_rds_table(db_connector, table_name):
+        engine = db_connector.init_db_engine()
+        df = pd.read_sql_table(table_name, engine)
+        return df
+    
+    def retrieve_pdf_data(link):
+        dfs = tabula.read_pdf(link)
+        pdf_data = pd.concat(dfs)
+        return pdf_data
 
-    @staticmethod
-    def extract_from_s3(bucket_name, object_key):
-        s3 = boto3.client('s3')
-        response = s3.get_object(Bucket=bucket_name, Key=object_key)
-        data = response['Body'].read().decode('utf-8')
-        return data
+
