@@ -58,4 +58,7 @@ class DataCleaning:
         # Remove specified columns
         orders_data_cleaned = orders_data.drop(columns=['first_name', 'last_name', '1'], errors='ignore')
         return orders_data_cleaned
+    
+    def clean_date_details(data_pd):
+        return data_pd
 

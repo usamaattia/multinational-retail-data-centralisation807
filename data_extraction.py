@@ -56,6 +56,18 @@ class DataExtractor:
             print(f"Error extracting data from S3: {e}")
             return pd.DataFrame()
     
-    
+    def retrieve_json_data(json_link):
+        try:
+            # Extract JSON data from the provided link
+            response = requests.get(json_link)
+            json_data = response.json()
+
+            # Convert to DataFrame (assuming the data is in a suitable format)
+            date_details_data = pd.DataFrame(json_data)
+
+            return date_details_data
+        except Exception as e:
+            print(f"Error retrieving JSON data: {e}")
+            return pd.DataFrame()
 
 
