@@ -52,4 +52,10 @@ class DataCleaning:
         # Method to clean product data
         # Implement cleaning logic based on your specific requirements
         return products_df
+    
+    def clean_orders_data(self,orders_data):
+        # Step 3: Clean orders data
+        # Remove specified columns
+        orders_data_cleaned = orders_data.drop(columns=['first_name', 'last_name', '1'], errors='ignore')
+        return orders_data_cleaned
 

@@ -10,7 +10,7 @@ data_cleaning = DataCleaning()
 
 engine = db_connector.init_db_engine()
 
-table_name = db_connector.list_db_tables(engine)  # Assuming the first table is the user data table
+# table_name = db_connector.list_db_tables(engine)  # Assuming the first table is the user data table
 # for table in table_name:
 #     print(table)  
 #     raw_data = data_extractor.read_rds_table(db_connector, table)
@@ -47,12 +47,28 @@ table_name = db_connector.list_db_tables(engine)  # Assuming the first table is 
 
 ##################################
 
-# Step 1: Extract product data from S3
-s3_address = "s3://data-handling-public/products.csv"
-products_data = DataExtractor.extract_from_s3(s3_address)
-products_data = DataCleaning.convert_product_weights(products_data)
-products_data = DataCleaning.clean_products_data(products_data)
-print(products_data)
-db_connector.upload_to_db(products_data, 'dim_products')
+# # Step 1: Extract product data from S3
+# s3_address = "s3://data-handling-public/products.csv"
+# products_data = DataExtractor.extract_from_s3(s3_address)
+# products_data = DataCleaning.convert_product_weights(products_data)
+# products_data = DataCleaning.clean_products_data(products_data)
+# print(products_data)
+# db_connector.upload_to_db(products_data, 'dim_products')
 
 ##################################
+
+table_name = db_connector.list_db_tables(engine)  # Assuming the first table is the user data table
+for table in table_name:
+    print(table) 
+    raw_data = data_extractor.read_rds_table(db_connector, table)
+    print(raw_data)
+    print(type(raw_data))
+    # # Clean data
+    cleaned_data = data_cleaning.clean_orders_data(raw_data)
+    print(cleaned_data)
+    # Upload to database
+    db_connector.upload_to_db(cleaned_data, table)
+
+
+##################################
+
