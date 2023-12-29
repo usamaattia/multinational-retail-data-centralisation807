@@ -236,3 +236,24 @@ ALTER COLUMN still_available_temp TYPE BOOL;
 ALTER TABLE dim_products
 ALTER COLUMN weight_class TYPE VARCHAR(255); 
 '''
+
+##################################
+
+    # milestone 3 task 6
+
+'''
+ALTER TABLE dim_date_times
+ALTER COLUMN month TYPE VARCHAR(2); 
+
+ALTER TABLE dim_date_times
+ALTER COLUMN year TYPE VARCHAR(4); 
+
+ALTER TABLE dim_date_times
+ALTER COLUMN day TYPE VARCHAR(2); 
+
+ALTER TABLE dim_date_times
+ALTER COLUMN time_period TYPE VARCHAR(255); 
+
+ALTER TABLE dim_date_times
+ALTER COLUMN date_uuid TYPE UUID USING (uuid_generate_v4()); 
+'''
