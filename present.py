@@ -57,25 +57,74 @@ engine = db_connector.init_db_engine()
 
 ##################################
 
-# table_name = db_connector.list_db_tables(engine)  # Assuming the first table is the user data table
-# for table in table_name:
-#     print(table) 
-#     raw_data = data_extractor.read_rds_table(db_connector, table)
-#     print(raw_data)
-#     print(type(raw_data))
-#     # # Clean data
-#     cleaned_data = data_cleaning.clean_orders_data(raw_data)
-#     print(cleaned_data)
-#     # Upload to database
-#     db_connector.upload_to_db(cleaned_data, table)
+table_name = db_connector.list_db_tables(engine)  # Assuming the first table is the user data table
+for table in table_name:
+    print(table) 
+    raw_data = data_extractor.read_rds_table(db_connector, table)
+    print(raw_data)
+    print(type(raw_data))
+    # # Clean data
+    cleaned_data = data_cleaning.clean_orders_data(raw_data)
+    print(cleaned_data)
+    # Upload to database
+    db_connector.upload_to_db(cleaned_data, table)
 
 
 ##################################
-    
-s3_json_link = "https://data-handling-public.s3.eu-west-1.amazonaws.com/date_details.json"
-date_details_data = DataExtractor.retrieve_json_data(s3_json_link)
-date_details_data = DataCleaning.clean_date_details(date_details_data)
-print(date_details_data)
-db_connector.upload_to_db(date_details_data, 'dim_date_times')
+    # final task in milestone 2
+# s3_json_link = "https://data-handling-public.s3.eu-west-1.amazonaws.com/date_details.json"
+# date_details_data = DataExtractor.retrieve_json_data(s3_json_link)
+# date_details_data = DataCleaning.clean_date_details(date_details_data)
+# print(date_details_data)
+# db_connector.upload_to_db(date_details_data, 'dim_date_times')
+
+##################################
+
+    # milestone 3 task 1
+
+'''
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+ALTER TABLE orders_table
+ALTER COLUMN date_uuid TYPE UUID USING (uuid_generate_v4());
+ALTER TABLE orders_table
+ALTER COLUMN user_uuid TYPE UUID USING (uuid_generate_v4());
+
+-- Alter 'card_number', 'store_code', and 'product_code' columns to VARCHAR with appropriate length
+ALTER TABLE orders_table
+ALTER COLUMN card_number TYPE VARCHAR(20);
+ALTER TABLE orders_table
+ALTER COLUMN store_code TYPE VARCHAR(12);
+ALTER TABLE orders_table
+ALTER COLUMN product_code TYPE VARCHAR(11);
+
+-- Alter 'product_quantity' column to SMALLINT
+ALTER TABLE orders_table
+ALTER COLUMN product_quantity TYPE SMALLINT;
+'''
+
+##################################
+
+    # milestone 3 task 2
 
 
+'''
+ALTER TABLE dim_users
+ALTER COLUMN first_name TYPE VARCHAR(255);
+
+ALTER TABLE dim_users
+ALTER COLUMN last_name TYPE VARCHAR(255);
+
+ALTER TABLE dim_users
+ALTER COLUMN date_of_birth TYPE DATE USING TO_DATE(date_of_birth, 'YYYY-MM-DD'); 
+
+ALTER TABLE dim_users
+ALTER COLUMN country_code TYPE VARCHAR(2); 
+
+ALTER TABLE dim_users
+ALTER COLUMN user_uuid TYPE UUID USING (uuid_generate_v4());
+
+ALTER TABLE dim_users
+ALTER COLUMN join_date TYPE DATE USING TO_DATE(join_date, 'YYYY-MM-DD');
+
+'''
