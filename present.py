@@ -171,3 +171,32 @@ SET locality = 'N/A'
 WHERE locality IS NULL;
 
 '''
+
+##################################
+
+    # milestone 3 task 4
+'''
+UPDATE dim_products
+SET product_price = REPLACE(product_price, '£', '')::DECIMAL;
+
+-- Add a new column 'weight_class'
+ALTER TABLE dim_products
+ADD COLUMN weight_class VARCHAR(50);
+
+-- Update 'weight_class' based on the weight range
+UPDATE dim_products
+SET weight_class = 'Light'
+WHERE weight < 2;
+
+UPDATE dim_products
+SET weight_class = 'Mid_Sized'
+WHERE weight >= 2 AND weight < 40;
+
+UPDATE dim_products
+SET weight_class = 'Heavy'
+WHERE weight >= 40 AND weight < 140;
+
+UPDATE dim_products
+SET weight_class = 'Truck_Required'
+WHERE weight >= 140;
+'''
