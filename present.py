@@ -278,3 +278,30 @@ ALTER COLUMN expiry_date TYPE VARCHAR(10);
 ALTER TABLE dim_card_details
 ALTER COLUMN date_payment_confirmed TYPE DATE USING TO_DATE(date_payment_confirmed, 'YYYY-MM-DD');
 '''
+
+
+##################################
+
+    # milestone 3 task 8
+
+'''
+-- Update dim_users_table
+ALTER TABLE dim_users_table
+ADD PRIMARY KEY (user_uuid);
+
+-- Update dim_store_details
+ALTER TABLE dim_store_details
+ADD PRIMARY KEY (store_code);
+
+-- Update dim_products
+ALTER TABLE dim_products
+ADD PRIMARY KEY (product_code);
+
+-- Update dim_date_times
+ALTER TABLE dim_date_times
+ADD PRIMARY KEY (date_uuid);
+
+-- Update dim_card_details
+ALTER TABLE dim_card_details
+ADD PRIMARY KEY (card_number);
+'''
