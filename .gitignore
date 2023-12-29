@@ -1,2 +1,5 @@
 db_creds.yaml
+
+__pycache__
+
 database_utils.py
