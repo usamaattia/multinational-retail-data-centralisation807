@@ -257,3 +257,24 @@ ALTER COLUMN time_period TYPE VARCHAR(255);
 ALTER TABLE dim_date_times
 ALTER COLUMN date_uuid TYPE UUID USING (uuid_generate_v4()); 
 '''
+
+##################################
+
+    # milestone 3 task 7
+
+'''
+SELECT
+  MAX(LENGTH(card_number)) AS max_card_number_length,
+  MAX(LENGTH(expiry_date)) AS max_expiry_date_length
+FROM dim_card_details;
+
+-- Change data types of columns
+ALTER TABLE dim_card_details
+ALTER COLUMN card_number TYPE VARCHAR(22); 
+
+ALTER TABLE dim_card_details
+ALTER COLUMN expiry_date TYPE VARCHAR(10);
+
+ALTER TABLE dim_card_details
+ALTER COLUMN date_payment_confirmed TYPE DATE USING TO_DATE(date_payment_confirmed, 'YYYY-MM-DD');
+'''
