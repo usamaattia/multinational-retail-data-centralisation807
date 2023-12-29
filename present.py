@@ -200,3 +200,39 @@ UPDATE dim_products
 SET weight_class = 'Truck_Required'
 WHERE weight >= 140;
 '''
+
+##################################
+
+    # milestone 3 task 5
+'''
+-- Assuming your dim_products table is named 'dim_products'
+
+-- Rename 'still_available' column to 'still_available_temp'
+ALTER TABLE dim_products
+RENAME COLUMN still_available TO still_available_temp;
+
+-- Change data types of columns
+ALTER TABLE dim_products
+ALTER COLUMN product_price TYPE FLOAT USING NULLIF(product_price, '')::FLOAT;
+
+ALTER TABLE dim_products
+ALTER COLUMN weight TYPE FLOAT USING NULLIF(weight, '')::FLOAT;
+
+ALTER TABLE dim_products
+ALTER COLUMN EAN TYPE VARCHAR(255); 
+
+ALTER TABLE dim_products
+ALTER COLUMN product_code TYPE VARCHAR(255); 
+
+ALTER TABLE dim_products
+ALTER COLUMN date_added TYPE DATE USING TO_DATE(date_added, 'YYYY-MM-DD'); 
+
+ALTER TABLE dim_products
+ALTER COLUMN uuid TYPE UUID USING (uuid_generate_v4()); 
+
+ALTER TABLE dim_products
+ALTER COLUMN still_available_temp TYPE BOOL;
+
+ALTER TABLE dim_products
+ALTER COLUMN weight_class TYPE VARCHAR(255); 
+'''
