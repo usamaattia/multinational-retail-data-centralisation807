@@ -27,10 +27,10 @@ class DatabaseConnector:
     
     @staticmethod
     def upload_to_db(df, table_name):
-        conn_string = 'postgresql+psycopg2://postgres:password@localhost:5433/sales_data'
+        conn_string = 'postgresql+psycopg2://postgres:0933743984u@localhost:5433/sales_data'
         engine = create_engine(conn_string) 
         df.to_sql(table_name, engine, if_exists='replace', index=False)
-        conn = psycopg2.connect(host='localhost', port=5433, dbname='sales_data', user='postgres', password='password') 
+        conn = psycopg2.connect(host='localhost', port=5433, dbname='sales_data', user='postgres', password='0933743984u') 
         conn.autocommit = True
         cursor = conn.cursor() 
         

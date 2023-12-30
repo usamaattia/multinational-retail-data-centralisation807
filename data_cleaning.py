@@ -4,10 +4,15 @@ import numpy as np
 class DataCleaning:
     @staticmethod
     def clean_user_data(df):
-        # Your cleaning logic here
-        # Handle NULL values, date errors, incorrect types, etc.
-        cleaned_df = df  # Replace this with your actual cleaning logic
-        return cleaned_df
+        print(df.info())
+        df.dropna(subset=['user_uuid'], inplace=True)  # to drop rwos with missing values
+        df.fillna('NA', inplace=True)  # Fill missing values
+        df['date_of_birth'] = pd.to_datetime(df['date_of_birth'], errors='coerce')
+        df.dropna(subset=['date_of_birth'], inplace=True)
+        columns_to_keep = ['first_name', 'last_name', 'date_of_birth', 'company', 'email_address', 'address', 'country', 'country_code', 'phone_number', 'join_date', 'user_uuid']
+        df = df[columns_to_keep]
+        return df
+    
     def clean_card_data(self, card_data):
         # Method to clean card data
         # Handle NULL values, errors, and formatting issues
