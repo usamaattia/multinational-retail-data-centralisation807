@@ -27,9 +27,23 @@ class DataCleaning:
         return card_data
         
     def clean_store_data(self, store_data):
-        # Method to clean store data
-        # Implement cleaning logic based on your specific requirements
-        pass
+        print(store_data)
+        print(store_data.info())
+        # Change data types
+        store_data['longitude'] = pd.to_numeric(store_data['longitude'], errors='coerce')
+        store_data['lat'] = pd.to_numeric(store_data['lat'], errors='coerce')
+        store_data['staff_numbers'] = pd.to_numeric(store_data['staff_numbers'], errors='coerce')
+        store_data['latitude'] = pd.to_numeric(store_data['latitude'], errors='coerce')
+        store_data['opening_date'] = pd.to_datetime(store_data['opening_date'], errors='coerce')
+        # Handling missing values
+        store_data.dropna(subset=['latitude'], inplace=True)
+        store_data.dropna(subset=['longitude'], inplace=True)
+        store_data.dropna(subset=['locality'], inplace=True)
+        # Remove duplicates
+        store_data.drop_duplicates(subset=['store_code'], keep='first', inplace=True)
+        # del "lat" because it is mostly empty
+        store_data = store_data.drop('lat', axis=1)
+        return store_data
 
     def convert_product_weights(products_df):
         # Method to convert and clean product weights
