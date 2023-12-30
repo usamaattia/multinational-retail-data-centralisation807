@@ -14,9 +14,18 @@ class DataCleaning:
         return df
     
     def clean_card_data(self, card_data):
-        # Method to clean card data
-        # Handle NULL values, errors, and formatting issues
-        pass
+        print(card_data)
+        print(card_data.info())
+        
+        card_data['card_number'] = pd.to_numeric(card_data['card_number'], downcast='integer', errors="coerce")
+        card_data.dropna(subset=['card_number'], inplace=True)
+        card_data.dropna(subset=['expiry_date'], inplace=True)
+        card_data.dropna(subset=['card_provider'], inplace=True)
+        card_data['date_payment_confirmed'] = pd.to_datetime(card_data['date_payment_confirmed'], errors='coerce')
+        card_data.dropna(subset=['date_payment_confirmed'], inplace=True)
+        print(card_data.info())
+        return card_data
+        
     def clean_store_data(self, store_data):
         # Method to clean store data
         # Implement cleaning logic based on your specific requirements
