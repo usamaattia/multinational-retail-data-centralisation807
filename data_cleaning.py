@@ -84,11 +84,19 @@ class DataCleaning:
         return products_df
     
     def clean_orders_data(self,orders_data):
-        # Step 3: Clean orders data
+        # Clean orders data
         # Remove specified columns
+        print(orders_data.info())
         orders_data_cleaned = orders_data.drop(columns=['first_name', 'last_name', '1'], errors='ignore')
         return orders_data_cleaned
     
     def clean_date_details(data_pd):
+        print(data_pd.info())
+        # Convert data types
+        data_pd['timestamp'] = pd.to_datetime(data_pd['timestamp'], errors='coerce')
+        data_pd['month'] = pd.to_numeric(data_pd['month'], errors='coerce')
+        data_pd['year'] = pd.to_numeric(data_pd['year'], errors='coerce')
+        data_pd['day'] = pd.to_numeric(data_pd['day'], errors='coerce')
+        print(data_pd.info())
         return data_pd
 

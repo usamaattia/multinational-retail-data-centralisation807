@@ -57,26 +57,25 @@ db_connector.upload_to_db(products_data, 'dim_products')
 
 ##################################
 
-# table_name = db_connector.list_db_tables(engine) 
-# for table in table_name:
-#     print(table) 
-#     raw_data = data_extractor.read_rds_table(db_connector, table)
-#     print(raw_data)
-#     print(type(raw_data))
-#     # # Clean data
-#     cleaned_data = data_cleaning.clean_orders_data(raw_data)
-#     print(cleaned_data)
-#     # Upload to database
-#     db_connector.upload_to_db(cleaned_data, table)
+table_name = db_connector.list_db_tables(engine)[2]  # Assuming the first table is the user data table
+
+print(table_name)  
+raw_data = data_extractor.read_rds_table(db_connector, table_name)
+print(raw_data)
+print(type(raw_data))
+# Clean data
+cleaned_data = data_cleaning.clean_orders_data(raw_data)
+# Upload to database
+db_connector.upload_to_db(cleaned_data, table_name)
 
 
 ##################################
     # final task in milestone 2
-# s3_json_link = "https://data-handling-public.s3.eu-west-1.amazonaws.com/date_details.json"
-# date_details_data = DataExtractor.retrieve_json_data(s3_json_link)
-# date_details_data = DataCleaning.clean_date_details(date_details_data)
-# print(date_details_data)
-# db_connector.upload_to_db(date_details_data, 'dim_date_times')
+s3_json_link = "https://data-handling-public.s3.eu-west-1.amazonaws.com/date_details.json"
+date_details_data = DataExtractor.retrieve_json_data(s3_json_link)
+date_details_data = DataCleaning.clean_date_details(date_details_data)
+print(date_details_data)
+db_connector.upload_to_db(date_details_data, 'dim_date_times')
 
 ##################################
 
