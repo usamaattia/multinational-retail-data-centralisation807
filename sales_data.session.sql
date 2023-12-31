@@ -1,30 +1,27 @@
 
-SELECT * FROM dim_card_details
+--    # milestone 3 task 1
 
+SELECT * from orders_table;
 
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
--- --    # milestone 3 task 1
+ALTER TABLE orders_table
+ALTER COLUMN date_uuid TYPE UUID USING (uuid_generate_v4());
+ALTER TABLE orders_table
+ALTER COLUMN user_uuid TYPE UUID USING (uuid_generate_v4());
 
--- '''
--- CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+-- Alter 'card_number', 'store_code', and 'product_code' columns to VARCHAR with appropriate length
+ALTER TABLE orders_table
+ALTER COLUMN card_number TYPE VARCHAR(20);
+ALTER TABLE orders_table
+ALTER COLUMN store_code TYPE VARCHAR(12);
+ALTER TABLE orders_table
+ALTER COLUMN product_code TYPE VARCHAR(11);
 
--- ALTER TABLE orders_table
--- ALTER COLUMN date_uuid TYPE UUID USING (uuid_generate_v4());
--- ALTER TABLE orders_table
--- ALTER COLUMN user_uuid TYPE UUID USING (uuid_generate_v4());
+-- Alter 'product_quantity' column to SMALLINT
+ALTER TABLE orders_table
+ALTER COLUMN product_quantity TYPE SMALLINT;
 
--- -- Alter 'card_number', 'store_code', and 'product_code' columns to VARCHAR with appropriate length
--- ALTER TABLE orders_table
--- ALTER COLUMN card_number TYPE VARCHAR(20);
--- ALTER TABLE orders_table
--- ALTER COLUMN store_code TYPE VARCHAR(12);
--- ALTER TABLE orders_table
--- ALTER COLUMN product_code TYPE VARCHAR(11);
-
--- -- Alter 'product_quantity' column to SMALLINT
--- ALTER TABLE orders_table
--- ALTER COLUMN product_quantity TYPE SMALLINT;
--- '''
 
 -- -- ##################################
 
