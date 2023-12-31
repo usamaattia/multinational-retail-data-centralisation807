@@ -46,9 +46,6 @@ class DataCleaning:
         return store_data
 
     def convert_product_weights(products_df):
-        # Method to convert and clean product weights
-        # Assume 'weight' column contains weights in various units
-
         def convert_weight(weight):
             # Convert weights to kg
             # Add your conversion logic based on the units in your dataset
@@ -77,8 +74,13 @@ class DataCleaning:
         return products_df
 
     def clean_products_data(products_df):
-        # Method to clean product data
-        # Implement cleaning logic based on your specific requirements
+        # Convert types
+        print(products_df.info())
+        products_df['weight'] = pd.to_numeric(products_df['weight'], errors='coerce')
+        products_df['date_added'] = pd.to_datetime(products_df['date_added'], errors='coerce')
+        # Handling missing values
+        products_df.dropna(subset=['product_name'], inplace=True)
+        print(products_df.info())
         return products_df
     
     def clean_orders_data(self,orders_data):
