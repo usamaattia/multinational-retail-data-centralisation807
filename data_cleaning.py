@@ -8,7 +8,9 @@ class DataCleaning:
         df.dropna(subset=['user_uuid'], inplace=True)  # to drop rwos with missing values
         df.fillna('NA', inplace=True)  # Fill missing values
         df['date_of_birth'] = pd.to_datetime(df['date_of_birth'], errors='coerce')
+        df['join_date'] = pd.to_datetime(df['join_date'], errors='coerce')
         df.dropna(subset=['date_of_birth'], inplace=True)
+        df.dropna(subset=['join_date'], inplace=True)
         columns_to_keep = ['first_name', 'last_name', 'date_of_birth', 'company', 'email_address', 'address', 'country', 'country_code', 'phone_number', 'join_date', 'user_uuid']
         df = df[columns_to_keep]
         return df
@@ -17,7 +19,7 @@ class DataCleaning:
         print(card_data)
         print(card_data.info())
         
-        card_data['card_number'] = pd.to_numeric(card_data['card_number'], downcast='integer', errors="coerce")
+        
         card_data.dropna(subset=['card_number'], inplace=True)
         card_data.dropna(subset=['expiry_date'], inplace=True)
         card_data.dropna(subset=['card_provider'], inplace=True)
@@ -80,6 +82,13 @@ class DataCleaning:
         products_df['date_added'] = pd.to_datetime(products_df['date_added'], errors='coerce')
         # Handling missing values
         products_df.dropna(subset=['product_name'], inplace=True)
+        products_df.dropna(subset=['weight'], inplace=True)
+        # deleting random values
+        products_df = products_df.drop(products_df[products_df['product_price'].str.match('D')].index)
+        products_df = products_df.drop(products_df[products_df['product_price'].str.match('XCD69KUI0K')].index)
+        products_df = products_df.drop(products_df[products_df['product_price'].str.match('N9D2BZQX63')].index)
+        products_df = products_df.drop(products_df[products_df['product_price'].str.match('ODPMASE7V7')].index)
+    
         print(products_df.info())
         return products_df
     

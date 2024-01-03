@@ -23,12 +23,12 @@ db_connector.upload_to_db(cleaned_data, 'dim_users')
 
 ####################################
 
-# pdf_page = 'https://data-handling-public.s3.eu-west-1.amazonaws.com/card_details.pdf'
+pdf_page = 'https://data-handling-public.s3.eu-west-1.amazonaws.com/card_details.pdf'
 
-# pd_pdf = DataExtractor.retrieve_pdf_data(pdf_page)
-# print(pd_pdf)
-# cleaned_pdf_data = data_cleaning.clean_card_data(pd_pdf)
-# db_connector.upload_to_db(cleaned_pdf_data, 'dim_card_details')
+pd_pdf = DataExtractor.retrieve_pdf_data(pdf_page)
+print(pd_pdf)
+cleaned_pdf_data = data_cleaning.clean_card_data(pd_pdf)
+db_connector.upload_to_db(cleaned_pdf_data, 'dim_card_details')
 
 # ##################################
 # headers = {'x-api-key': 'yFBQbwXe9J3sd6zWVAMrK6lcxxr0q1lr2PT6DDMX'}
