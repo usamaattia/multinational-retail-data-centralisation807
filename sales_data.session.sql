@@ -204,11 +204,11 @@ WHERE weight >= 140;
 
 
 
-Rename 'removed' column to 'still_available'
+-- Rename 'removed' column to 'still_available'
 ALTER TABLE dim_products
 RENAME COLUMN removed TO still_available;
 
-Change data types of columns
+-- Change data types of columns
 ALTER TABLE dim_products
 ALTER COLUMN product_price TYPE FLOAT USING NULLIF(product_price, '')::FLOAT;
 
