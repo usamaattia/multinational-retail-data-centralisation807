@@ -6,7 +6,7 @@ This project centralizes and manages retail data from various sources, including
 ## Project Structure
 
 ### 1. `data_extraction.py`
-   - Class `DataExtractor` to extract data from CSV files, an API, and an S3 bucket.
+   - Class `DataExtractor` to extract data from pdf files, an API, and an S3 bucket.
    - Methods for extracting data from different sources.
 
 ### 2. `database_utils.py`
