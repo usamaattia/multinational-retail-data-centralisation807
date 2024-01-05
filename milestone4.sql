@@ -11,12 +11,12 @@
 -- -- | US       |              34 |
 -- -- +----------+-----------------+
 
--- SELECT
---   country_code AS country,
---   COUNT(store_code) AS total_no_stores
--- FROM dim_store_details
--- GROUP BY country_code
--- ORDER BY total_no_stores DESC, country_code;
+SELECT
+  country_code AS country,
+  COUNT(store_code) AS total_no_stores
+FROM dim_store_details
+GROUP BY country_code
+ORDER BY total_no_stores DESC, country_code;
 
 -- -- #######################################
 
@@ -40,13 +40,13 @@
 -- -- | Rutherglen        |              10 |
 -- -- +-------------------+-----------------+
 
--- SELECT
---   locality,
---   COUNT(store_code) AS total_no_stores
--- FROM dim_store_details
--- GROUP BY locality
--- ORDER BY total_no_stores DESC, locality
--- LIMIT 7; -- Limit the result to the top 7 locations
+SELECT
+  locality,
+  COUNT(store_code) AS total_no_stores
+FROM dim_store_details
+GROUP BY locality
+ORDER BY total_no_stores DESC, locality
+LIMIT 7; -- Limit the result to the top 7 locations
 
 -- -- #######################################
 
