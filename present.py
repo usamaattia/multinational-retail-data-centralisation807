@@ -57,8 +57,7 @@ db_connector.upload_to_db(products_data, 'dim_products')
 
 ##################################
 
-table_name = db_connector.list_db_tables(engine)[2]  # Assuming the first table is the user data table
-
+table_name = db_connector.list_db_tables(engine)[2]  
 print(table_name)  
 raw_data = data_extractor.read_rds_table(db_connector, table_name)
 print(raw_data)
